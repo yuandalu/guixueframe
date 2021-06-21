@@ -6,5 +6,13 @@
             "email": "dingdejing@guixue.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "base/",
+            "web/",
+            "QFrame.php",
+            "QFramebase.php"
+        ]
+    }
 }
