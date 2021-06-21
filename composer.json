@@ -1,12 +1,9 @@
 {
     "name": "yuandalu/guixueframe",
-    "authors": [
-        {
-            "name": "dingdejing",
-            "email": "dingdejing@guixue.com"
-        }
-    ],
-    "require": {},
+    "type": "project",
+    "require": {
+        "php": "^5.6"
+    },
     "autoload": {
         "classmap": [
             "base/",
