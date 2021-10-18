@@ -17,7 +17,22 @@ class QFrameAction
     public function dispatch($action)
     {
         $this->preDispatch();
-        $this->$action();
+        $data = $this->$action();
+        if (is_array($data) || is_object($data)) {
+            $this->setNoViewRender(true);
+            header("content-type:application/json;charset=utf-8");
+            $data = json_encode($data);
+            $etag = md5($data);
+            if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $etag) {
+                header("HTTP/1.1 304 Not Modified");
+            } else {
+                header("Etag: " . $etag);
+                echo $data;
+            }
+        } else if (is_string($data) || is_numeric($data)) {
+            $this->setNoViewRender(true);
+            echo $data;
+        }
         $this->postDispatch();
     }
 
@@ -218,5 +233,4 @@ class QFrameAction
     {
         $this->view = QFrameContainer::find('QFrameView');
     }
-
 }
